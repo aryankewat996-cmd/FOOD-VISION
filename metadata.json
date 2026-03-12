@@ -1,0 +1,5 @@
+{
+  "name": "FoodVision AI",
+  "description": "Analyze packaged food products by scanning ingredients and nutrition labels to get health scores and AI-powered insights.",
+  "requestFramePermissions": ["camera"]
+}

@@ -1,0 +1,49 @@
+{
+  "entities": {
+    "ProductScan": {
+      "title": "Product Scan",
+      "description": "A record of a food product scan and its analysis.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The user ID who performed the scan." },
+        "productName": { "type": "string", "description": "The name of the product." },
+        "imageUrl": { "type": "string", "description": "URL of the scanned image (optional)." },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the scan was performed." },
+        "analysis": {
+          "type": "object",
+          "properties": {
+            "classification": { "type": "string", "enum": ["Food", "Beverage", "Supplement"] },
+            "energyKcal": { "type": "number" },
+            "sugar": { "type": "string", "enum": ["Low", "Medium", "High"] },
+            "fat": { "type": "string", "enum": ["Low", "Medium", "High"] },
+            "protein": { "type": "number" },
+            "sodium": { "type": "number" },
+            "ingredients": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "category": { "type": "string", "enum": ["Natural", "Artificial", "Preservative", "Additive", "Allergen"] }
+                }
+              }
+            },
+            "healthScore": { "type": "number" },
+            "naturalPercentage": { "type": "number" },
+            "artificialPercentage": { "type": "number" },
+            "explanation": { "type": "string" },
+            "alternatives": { "type": "array", "items": { "type": "string" } },
+            "processedScore": { "type": "number", "description": "Ultra-processed food score (0-10)" }
+          }
+        }
+      },
+      "required": ["uid", "productName", "timestamp", "analysis"]
+    }
+  },
+  "firestore": {
+    "/scans/{scanId}": {
+      "schema": "ProductScan",
+      "description": "Collection of all product scans."
+    }
+  }
+}
